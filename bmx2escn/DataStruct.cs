@@ -49,10 +49,10 @@ namespace bmx2escn.DataStruct {
         public UInt32 INDEX;
         public string NAME;
 
-        public BMXColor ambient;
-        public BMXColor diffuse;
-        public BMXColor specular;
-        public BMXColor emissive;
+        public BMXColor ambient = new BMXColor();
+        public BMXColor diffuse = new BMXColor();
+        public BMXColor specular = new BMXColor();
+        public BMXColor emissive = new BMXColor();
         public float specular_power;
         public bool use_texture;
         public UInt32 map_kd;
@@ -61,11 +61,22 @@ namespace bmx2escn.DataStruct {
     public class ChunkMesh {
         public UInt32 INDEX;
         public string NAME;
-        
-        public List<BMXPoint3D> v_list;
-        public List<BMXPoint2D> vt_list;
-        public List<BMXPoint3D> vn_list;
-        public List<BMXFace> face_list;
+
+        public List<BMXPoint3D> v_list = new List<BMXPoint3D>();
+        public List<BMXPoint2D> vt_list = new List<BMXPoint2D>();
+        public List<BMXPoint3D> vn_list = new List<BMXPoint3D>();
+        public List<BMXFace> face_list = new List<BMXFace>();
+    }
+
+    public class ChunkObject {
+        public UInt32 INDEX;
+        public string NAME;
+
+        public bool is_component;
+        public bool is_hidden;
+        public float[,] world_matrix = new float[4, 4];
+        public List<string> group_list = new List<string>();
+        public UInt32 mesh_index;
     }
 
 }
