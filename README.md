@@ -12,5 +12,5 @@ This project is consisted by 2 parts:
   - Code are almostly copied from BM import/export functions in [BallanceVirtoolsHelper](https://github.com/yyc12345/BallanceVirtoolsHelper)
 * bmx2escn
   - Receive BMX file and output ESCN file.
-  - A .Net 3.1 LTS C# project which can be run any platform.
+  - A .Net Core 3.1 LTS C# project which can be run any platform.
   - This app not only convert traditional Ballance map to OpenBallance map, but also support OpenBallance map creation. Because we also need Blender and BallanceBlenderHelper to create Ballance/OpenBallance map in future. Traditional Ballance map creation and OpenBallance map creation use the same tools. Also, this strategy can make feedback for traditional Ballance community

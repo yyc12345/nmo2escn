@@ -49,7 +49,7 @@ namespace bmx2escn {
             return guidFolder;
         }
 
-        public static void CleanTemPFolder() {
+        public static void CleanTempFolder() {
             var guidFolder = Path.Join(System.IO.Path.GetTempPath(), TEMP_GUID);
 
             if (Directory.Exists(guidFolder))
