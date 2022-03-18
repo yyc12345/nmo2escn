@@ -167,9 +167,9 @@ namespace bmx2escn {
                 }
 
                 // todo: change trangle order!!!!!! for coordinate system convertion
-                target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1), mesh.vt_list[(int)face.texture_1));
-                target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2), mesh.vt_list[(int)face.texture_2));
-                target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3), mesh.vt_list[(int)face.texture_3));
+                target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1], mesh.vt_list[(int)face.texture_1]);
+                target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2], mesh.vt_list[(int)face.texture_2]);
+                target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], mesh.vt_list[(int)face.texture_3]);
             }
 
             // write data
