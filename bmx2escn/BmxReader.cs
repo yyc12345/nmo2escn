@@ -181,6 +181,59 @@ namespace bmx2escn {
             }
         }
 
+        public IEnumerable<DataStruct.ChunkMaterial> IterateMaterial() {
+            using (var br = new BinaryReader(new FileStream(Path.Combine(mTempFolder, "material.bm"), FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF32)) {
+                foreach (var node in mObj) {
+                    var data = new DataStruct.ChunkMaterial();
+                    data.NAME = node.name;
+                    data.INDEX = node.index;
+
+                    DataStruct.BMXColor color;
+
+                    color = new DataStruct.BMXColor();
+                    color.R = br.ReadSingle();
+                    color.G = br.ReadSingle();
+                    color.B = br.ReadSingle();
+                    data.ambient = color;
+                    color = new DataStruct.BMXColor();
+                    color.R = br.ReadSingle();
+                    color.G = br.ReadSingle();
+                    color.B = br.ReadSingle();
+                    data.diffuse = color;
+                    color = new DataStruct.BMXColor();
+                    color.R = br.ReadSingle();
+                    color.G = br.ReadSingle();
+                    color.B = br.ReadSingle();
+                    data.specular = color;
+                    color = new DataStruct.BMXColor();
+                    color.R = br.ReadSingle();
+                    color.G = br.ReadSingle();
+                    color.B = br.ReadSingle();
+                    data.emissive = color;
+
+                    data.specular_power = br.ReadSingle();
+                    data.use_texture = br.ReadBmxBoolean();
+                    data.map_kd = br.ReadUInt32();
+
+                    yield return data;
+                }
+            }
+        }
+
+        public IEnumerable<DataStruct.ChunkTexture> IterateTexture() {
+            using (var br = new BinaryReader(new FileStream(Path.Combine(mTempFolder, "texture.bm"), FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF32)) {
+                foreach (var node in mObj) {
+                    var data = new DataStruct.ChunkTexture();
+                    data.NAME = node.name;
+                    data.INDEX = node.index;
+
+                    data.filename = br.ReadBmxString();
+                    data.is_external = br.ReadBmxBoolean();
+
+                    yield return data;
+                }
+            }
+        }
 
     }
 }

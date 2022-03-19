@@ -7,8 +7,11 @@ namespace bmx2escn {
             if (argParser.Result is null)
                 Environment.Exit(1);
 
+            ConvCore core = new ConvCore(argParser.Result);
+            core.DoConv();
+            core.Dispose();
 
-
+            Console.WriteLine("Done.");
         }
     }
 }
