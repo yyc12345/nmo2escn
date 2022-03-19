@@ -100,7 +100,6 @@ namespace bmx2escn {
 
                     for (int i = 0; i < 4; i++) {
                         for (int j = 0; j < 4; j++) {
-                            // todo: finish matrix reading!!!!!!!
                             data.world_matrix[i, j] = br.ReadSingle();
                         }
                     }

@@ -64,11 +64,25 @@ namespace bmx2escn {
                 index = vertice_count;
                 vertice_count++;
 
-                // todo: do coordinate system convertion
+                // do coordinate system convertion
                 vertice_index_map.Add(hash, index);
-                this.vertexs.Add(vertex);
-                this.normals.Add(normal);
-                this.uvs.Add(uv);
+
+                var _vertex = new DataStruct.BMXPoint3D();
+                _vertex.X = vertex.X;
+                _vertex.Y = vertex.Y;
+                _vertex.Z = -vertex.Z;
+                this.vertexs.Add(_vertex);
+
+                var _normal = new DataStruct.BMXPoint3D();
+                _normal.X = normal.X;
+                _normal.Y = normal.Y;
+                _normal.Z = -normal.Z;
+                this.normals.Add(_normal);
+
+                var _uv = new DataStruct.BMXPoint2D();
+                _uv.U = uv.U;
+                _uv.V = uv.V;
+                this.uvs.Add(_uv);
 
             }
             indices.Add(index);
@@ -151,7 +165,6 @@ namespace bmx2escn {
             UInt32 id = AllocSubResId();
             mMeshMap[mesh.INDEX] = id;
 
-            // todo: split mesh by material
             // split mesh by material
             Dictionary<UInt32, EscnFace> surface_map = new Dictionary<uint, EscnFace>();
             EscnFace target_surface;
@@ -166,10 +179,9 @@ namespace bmx2escn {
                     surface_map.Add(mat, target_surface);
                 }
 
-                // todo: change trangle order!!!!!! for coordinate system convertion
+                target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], mesh.vt_list[(int)face.texture_3]);
                 target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1], mesh.vt_list[(int)face.texture_1]);
                 target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2], mesh.vt_list[(int)face.texture_2]);
-                target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], mesh.vt_list[(int)face.texture_3]);
             }
 
             // write data
@@ -236,11 +248,12 @@ namespace bmx2escn {
                 mfs.WriteLine("visible = true");
             }
 
-            // todo: finish transform convertion!!!!!!!!!!!!
+            // do transform convertion
             mfs.WriteLine(string.Format("transform = Transform({0:e}, {1:e}, {2:e}, {3:e}, {4:e}, {5:e}, {6:e}, {7:e}, {8:e}, {9:e}, {10:e}, {11:e})",
-                obj.world_matrix[0, 0], obj.world_matrix[0, 1], obj.world_matrix[0, 2], obj.world_matrix[0, 3], 
-                obj.world_matrix[1, 0], obj.world_matrix[1, 1], obj.world_matrix[1, 2], obj.world_matrix[1, 3], 
-                obj.world_matrix[2, 0], obj.world_matrix[2, 1], obj.world_matrix[2, 2], obj.world_matrix[2, 3]
+                obj.world_matrix[0, 0], obj.world_matrix[1, 0], -obj.world_matrix[2, 0],
+                obj.world_matrix[0, 1], obj.world_matrix[1, 1], -obj.world_matrix[2, 1],
+                -obj.world_matrix[0, 2], -obj.world_matrix[1, 2], obj.world_matrix[2, 2],
+                obj.world_matrix[3, 0], obj.world_matrix[3, 1], -obj.world_matrix[3, 2]
             ));
 
         }
