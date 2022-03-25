@@ -93,8 +93,8 @@ namespace bmx2escn {
                     var data = new DataStruct.ChunkObject();
                     data.NAME = node.name;
                     data.INDEX = node.index;
-
                     br.BaseStream.Seek((long)node.offset, SeekOrigin.Begin);
+
                     data.is_component = br.ReadBmxBoolean();
                     data.is_hidden = br.ReadBmxBoolean();
 
@@ -123,6 +123,7 @@ namespace bmx2escn {
                     var data = new DataStruct.ChunkMesh();
                     data.NAME = node.name;
                     data.INDEX = node.index;
+                    br.BaseStream.Seek((long)node.offset, SeekOrigin.Begin);
 
                     int ls_count;
 
@@ -182,10 +183,11 @@ namespace bmx2escn {
 
         public IEnumerable<DataStruct.ChunkMaterial> IterateMaterial() {
             using (var br = new BinaryReader(new FileStream(Path.Combine(mTempFolder, "material.bm"), FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF32)) {
-                foreach (var node in mObj) {
+                foreach (var node in mMtl) {
                     var data = new DataStruct.ChunkMaterial();
                     data.NAME = node.name;
                     data.INDEX = node.index;
+                    br.BaseStream.Seek((long)node.offset, SeekOrigin.Begin);
 
                     DataStruct.BMXColor color;
 
@@ -221,10 +223,11 @@ namespace bmx2escn {
 
         public IEnumerable<DataStruct.ChunkTexture> IterateTexture() {
             using (var br = new BinaryReader(new FileStream(Path.Combine(mTempFolder, "texture.bm"), FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF32)) {
-                foreach (var node in mObj) {
+                foreach (var node in mTexture) {
                     var data = new DataStruct.ChunkTexture();
                     data.NAME = node.name;
                     data.INDEX = node.index;
+                    br.BaseStream.Seek((long)node.offset, SeekOrigin.Begin);
 
                     data.filename = br.ReadBmxString();
                     data.is_external = br.ReadBmxBoolean();

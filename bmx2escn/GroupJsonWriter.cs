@@ -112,7 +112,7 @@ namespace bmx2escn {
         public static readonly string DEPTH_CUBES = "DepthTestCubes";
 
         public GroupJsonWriter(string filepath, JsonFormatType method) {
-            mfs = new StreamWriter(filepath, false, Encoding.UTF8);
+            mfs = new StreamWriter(filepath, false, new UTF8Encoding(false));
             mMethod = method;
 
             mDataOpenBlc = new Dictionary<string, List<string>>();

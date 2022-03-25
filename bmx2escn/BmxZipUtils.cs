@@ -10,8 +10,14 @@ namespace bmx2escn {
         private static readonly string TEMP_GUID = "7608400f30784c61b79f271fef797ad1";
 
         public static string DecompressBmxToTemp(string bmxFilePath) {
-            var guidFolder = Path.Combine(System.IO.Path.GetTempPath(), TEMP_GUID);   // generate guid folder
-            ZipStrings.CodePage = 65001;    // use UTF-8 filename
+            // generate guid folder and preparing it in file system
+            var guidFolder = Path.Combine(System.IO.Path.GetTempPath(), TEMP_GUID);
+            if (Directory.Exists(guidFolder))
+                Directory.Delete(guidFolder, true);
+            Directory.CreateDirectory(guidFolder);
+
+            // use UTF-8 filename
+            ZipStrings.CodePage = 65001;    
 
             using (ZipInputStream s = new ZipInputStream(new FileStream(bmxFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))) {
                 ZipEntry theEntry;

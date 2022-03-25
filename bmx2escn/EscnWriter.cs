@@ -112,9 +112,9 @@ namespace bmx2escn {
             mInternalTexturePath = internalTexturePath;
             mHasWrittenRoot = false;
 
-            // open file and write head
-            mfs = new StreamWriter(filepath, false, Encoding.UTF8);
-            mfs.WriteLine("[gd_scene load_steps=1 format=2]");
+            // open file and write head without utf8 bom
+            mfs = new StreamWriter(filepath, false, new UTF8Encoding(false));
+            mfs.WriteLine($"[gd_scene load_steps={textureCount + mtlCount + meshCount + 1} format=2]");
         }
 
         StreamWriter mfs;
@@ -136,8 +136,11 @@ namespace bmx2escn {
             mTextureMap[texture.INDEX] = id;
 
             string path;
-            if (texture.is_external) path = mInternalTexturePath + texture;
-            else path = texture.filename;
+            if (texture.is_external) path = mInternalTexturePath + texture.filename;
+            else {
+                // todo: copy external texture
+                path = texture.filename;
+            }
 
             mfs.WriteLine($"[ext_resource id={id} path=\"{path}\" type=\"Texture\"]");
         }

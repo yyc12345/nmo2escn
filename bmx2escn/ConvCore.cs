@@ -26,6 +26,7 @@ namespace bmx2escn {
         public void Dispose() {
             if (!(mEscnWriter is null)) mEscnWriter.Dispose();
             if (!(mJsonWriter is null)) mJsonWriter.Dispose();
+            mBmxReader.Dispose();
         }
 
         public void DoConv() {
