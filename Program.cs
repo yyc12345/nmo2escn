@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bmx2escn {
+namespace nmo2escn {
     class Program {
         static void Main(string[] args) {
             var argParser = new CmdArgParser(args);

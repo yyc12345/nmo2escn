@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CommandLine;
 
-namespace bmx2escn {
+namespace nmo2escn {
 
     public class CmdArg {
         [Option('b', "bmx", Required = true, HelpText = "Input BMX to be processed.")]

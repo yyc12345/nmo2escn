@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace bmx2escn.DataStruct {
+namespace nmo2escn.DataStruct {
 
     public class BMXColor {
         public float R;
@@ -54,6 +54,10 @@ namespace bmx2escn.DataStruct {
         public BMXColor specular = new BMXColor();
         public BMXColor emissive = new BMXColor();
         public float specular_power;
+        public bool alpha_test;
+        public bool alpha_blend;
+        public bool z_buffer;
+        public bool two_sided;
         public bool use_texture;
         public UInt32 map_kd;
     }

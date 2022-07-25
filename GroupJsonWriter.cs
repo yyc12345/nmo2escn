@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace bmx2escn {
+namespace nmo2escn {
 
     public enum JsonFormatType {
         OpenBallance,

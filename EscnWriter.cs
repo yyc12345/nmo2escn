@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace bmx2escn {
+namespace nmo2escn {
 
     public static class ListWriterHelper {
 
@@ -154,7 +154,18 @@ namespace bmx2escn {
             mfs.WriteLine($"albedo_color = Color({material.diffuse.R}, {material.diffuse.G}, {material.diffuse.B}, 1.0)");
             mfs.WriteLine($"metallic = {(material.ambient.R + material.ambient.G + material.ambient.B) / 3.0f}");
             mfs.WriteLine($"metallic_specular = {(material.specular.R + material.specular.G + material.specular.B) / 3.0f}");
-            mfs.WriteLine($"metallic_specular = {(material.specular.R + material.specular.G + material.specular.B) / 3.0f}");
+
+            if (material.alpha_blend || material.alpha_test) {
+                mfs.WriteLine("flags_transparent = true");
+            } else {
+                mfs.WriteLine("flags_transparent = false");
+            }
+
+            if (material.two_sided) {
+                mfs.WriteLine("params_cull_mode = 2");
+            } else {
+                mfs.WriteLine("params_cull_mode = 0");
+            }
 
             if (material.use_texture) {
                 if (mTextureMap[material.map_kd] == INVALID_ID)
@@ -229,6 +240,8 @@ namespace bmx2escn {
         }
 
         public void WriteObject(DataStruct.ChunkObject obj) {
+            if (obj.NAME == "Virtools_CameraPlane") return; // skip useless object
+
             if (!mHasWrittenRoot) {
                 // write root node
                 mHasWrittenRoot = true;

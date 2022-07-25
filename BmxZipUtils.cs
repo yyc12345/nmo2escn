@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 
-namespace bmx2escn {
+namespace nmo2escn {
     public class BmxZipUtils {
 
         private static readonly string TEMP_GUID = "7608400f30784c61b79f271fef797ad1";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace bmx2escn {
+namespace nmo2escn {
     public class ConvCore : IDisposable {
         public ConvCore(CmdArg opts) {
             mBmxReader = new BmxReader(opts.InputBmx);

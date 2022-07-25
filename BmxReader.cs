@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace bmx2escn {
+namespace nmo2escn {
 
     public static class BinaryReaderExntension {
         public static string ReadBmxString(this BinaryReader br) {
@@ -213,6 +213,12 @@ namespace bmx2escn {
                     data.emissive = color;
 
                     data.specular_power = br.ReadSingle();
+
+                    data.alpha_test = br.ReadBmxBoolean();
+                    data.alpha_blend = br.ReadBmxBoolean();
+                    data.z_buffer = br.ReadBmxBoolean();
+                    data.two_sided = br.ReadBmxBoolean();
+
                     data.use_texture = br.ReadBmxBoolean();
                     data.map_kd = br.ReadUInt32();
 
