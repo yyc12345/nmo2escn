@@ -14,6 +14,37 @@ namespace nmo2escn.DataStruct {
         public float X;
         public float Y;
         public float Z;
+
+        public void Normalize() {
+            float l = (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+            X /= l;
+            Y /= l;
+            Z /= l;
+        }
+        public static BMXPoint3D operator *(BMXPoint3D p, float v) {
+            return new DataStruct.BMXPoint3D() {
+                X = p.X * v,
+                Y = p.Y * v,
+                Z = p.Z * v
+            };
+        }
+        public static float operator *(BMXPoint3D a, BMXPoint3D b) {
+            return (a.X * b.X + a.Y * b.Y + a.Z * b.Z);
+        }
+        public static BMXPoint3D operator -(BMXPoint3D p) {
+            return new DataStruct.BMXPoint3D() {
+                X = -p.X,
+                Y = -p.Y,
+                Z = -p.Z
+            };
+        }
+        public static BMXPoint3D operator -(BMXPoint3D a, BMXPoint3D b) {
+            return new DataStruct.BMXPoint3D() {
+                X = a.X - b.X,
+                Y = a.Y - b.Y,
+                Z = a.Z - b.Z
+            };
+        }
     }
 
     public class BMXPoint2D {

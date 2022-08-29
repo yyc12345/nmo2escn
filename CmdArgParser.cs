@@ -14,12 +14,12 @@ namespace nmo2escn {
         public JsonFormatType OutputJsonType { get; set; }
         [Option('e', "escn", Default = null, HelpText = "Output ESCN file for scene.")]
         public string OutputEscn { get; set; }
-        [Option("inpath", Default = "res://textures", HelpText = "Ballance internal textures path in ESCN file.")]
+        [Option("inpath", Default = "res://resources/textures/ballance/", HelpText = "Ballance internal textures path in ESCN file.")]
         public string EscnInternalPath { get; set; }
     }
-
+    
     public class CmdArgParser {
-
+        
         public CmdArg Result { get; private set; }
 
         public CmdArgParser(string[] argv) {

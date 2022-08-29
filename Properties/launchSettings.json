@@ -2,7 +2,7 @@
   "profiles": {
     "nmo2escn": {
       "commandName": "Project",
-      "commandLineArgs": "-b test.bmx -j test.json --jt OpenBallance -e test.escn --inpath \"res://resources/textures/\""
+      "commandLineArgs": "-b test.bmx -j test.json --jt OpenBallance -e test.escn --inpath \"res://resources/textures/ballance/\""
     }
   }
 }

@@ -145,7 +145,7 @@ namespace nmo2escn {
             mfs.WriteLine($"[ext_resource id={id} path=\"{path}\" type=\"Texture\"]");
         }
 
-        public void WriteMaterial(DataStruct.ChunkMaterial material) {
+        public void WriteMaterial(DataStruct.ChunkMaterial material, BmxLinkedObjProp extra_prop) {
             UInt32 id = AllocSubResId();
             mMtlMap[material.INDEX] = id;
 
@@ -173,9 +173,14 @@ namespace nmo2escn {
 
                 mfs.WriteLine($"albedo_texture = ExtResource({mTextureMap[material.map_kd]})");
             }
+
+            // rail special process
+            if (extra_prop.is_rail_like) {
+                mfs.WriteLine($"roughness = 0.5");
+            }
         }
 
-        public void WriteMesh(DataStruct.ChunkMesh mesh) {
+        public void WriteMesh(DataStruct.ChunkMesh mesh, BmxLinkedObjProp extra_prop) {
             UInt32 id = AllocSubResId();
             mMeshMap[mesh.INDEX] = id;
 
@@ -193,9 +198,21 @@ namespace nmo2escn {
                     surface_map.Add(mat, target_surface);
                 }
 
-                target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], mesh.vt_list[(int)face.texture_3]);
-                target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1], mesh.vt_list[(int)face.texture_1]);
-                target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2], mesh.vt_list[(int)face.texture_2]);
+                if (extra_prop.is_rail_like) {
+                    // re-calc uv
+                    target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], 
+                        ReflectionMapping.GetReflectionMapping(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3]));
+                    target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1], 
+                        ReflectionMapping.GetReflectionMapping(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1]));
+                    target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2], 
+                        ReflectionMapping.GetReflectionMapping(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2]));
+                } else {
+                    // copy original data
+                    target_surface.Add(mesh.v_list[(int)face.vertex_3], mesh.vn_list[(int)face.normal_3], mesh.vt_list[(int)face.texture_3]);
+                    target_surface.Add(mesh.v_list[(int)face.vertex_1], mesh.vn_list[(int)face.normal_1], mesh.vt_list[(int)face.texture_1]);
+                    target_surface.Add(mesh.v_list[(int)face.vertex_2], mesh.vn_list[(int)face.normal_2], mesh.vt_list[(int)face.texture_2]);
+                }
+
             }
 
             // write data

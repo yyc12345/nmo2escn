@@ -35,13 +35,17 @@ namespace nmo2escn {
                     Console.WriteLine($"Processing texture: {item.NAME}(#{item.INDEX})");
                     mEscnWriter.WriteTexture(item);
                 }
+
+                var mtl_obj_map = mBmxReader.GetMtlObjMap();
                 foreach (var item in mBmxReader.IterateMaterial()) {
                     Console.WriteLine($"Processing material: {item.NAME}(#{item.INDEX})");
-                    mEscnWriter.WriteMaterial(item);
+                    mEscnWriter.WriteMaterial(item, mtl_obj_map[item.INDEX]);
                 }
+
+                var mesh_obj_map = mBmxReader.GetMeshObjMap();
                 foreach (var item in mBmxReader.IterateMesh()) {
                     Console.WriteLine($"Processing mesh: {item.NAME}(#{item.INDEX})");
-                    mEscnWriter.WriteMesh(item);
+                    mEscnWriter.WriteMesh(item, mesh_obj_map[item.INDEX]);
                 }
             }
 
